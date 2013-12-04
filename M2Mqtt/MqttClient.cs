@@ -12,7 +12,7 @@ using Microsoft.SPOT.Net.Security;
 #endif
 // else other frameworks (.Net, .Net Compact or Mono)
 #else
-#if SSL
+#if SSL && !WINDOWS_PHONE
 using System.Security.Authentication;
 using System.Net.Security;
 #endif
@@ -103,7 +103,7 @@ namespace uPLibrary.Networking.M2Mqtt
         public bool IsConnected { get; private set; }
         
         // channel to communicate over the network
-        private MqttNetworkChannel channel;
+        private IMqttNetworkChannel channel;
 
         /// <summary>
         /// Constructor
@@ -221,7 +221,11 @@ namespace uPLibrary.Networking.M2Mqtt
             try
             {
                 // create network channel and connect to broker
+#if WINDOWS_PHONE
+                this.channel = new WPMqttNetworkChannel(this.brokerHostName, this.brokerIpAddress, this.brokerPort, this.secure, this.caCert);
+#else
                 this.channel = new MqttNetworkChannel(this.brokerHostName, this.brokerIpAddress, this.brokerPort, this.secure, this.caCert);
+#endif
                 this.channel.Connect();                
             }
             catch (Exception ex)

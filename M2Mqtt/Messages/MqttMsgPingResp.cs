@@ -22,7 +22,7 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         /// <param name="fixedHeaderFirstByte">First fixed header byte</param>
         /// <param name="channel">Channel connected to the broker</param>
         /// <returns>PINGRESP message instance</returns>
-        public static MqttMsgPingResp Parse(byte fixedHeaderFirstByte, MqttNetworkChannel channel)
+        public static MqttMsgPingResp Parse(byte fixedHeaderFirstByte, IMqttNetworkChannel channel)
         {
             MqttMsgPingResp msg = new MqttMsgPingResp();
 

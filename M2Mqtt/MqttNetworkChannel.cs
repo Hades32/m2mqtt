@@ -15,7 +15,7 @@ namespace uPLibrary.Networking.M2Mqtt
     /// <summary>
     /// Channel to communicate over the network
     /// </summary>
-    public class MqttNetworkChannel
+    public class MqttNetworkChannel : IMqttNetworkChannel
     {
         // remote host information
         private string remoteHostName;

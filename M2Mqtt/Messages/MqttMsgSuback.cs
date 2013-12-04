@@ -50,7 +50,7 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         /// <param name="fixedHeaderFirstByte">First fixed header byte</param>
         /// <param name="channel">Channel connected to the broker</param>
         /// <returns>SUBACK message instance</returns>
-        public static MqttMsgSuback Parse(byte fixedHeaderFirstByte, MqttNetworkChannel channel)
+        public static MqttMsgSuback Parse(byte fixedHeaderFirstByte, IMqttNetworkChannel channel)
         {
             byte[] buffer;
             int index = 0;

@@ -1,4 +1,4 @@
-#if SSL
+#if SSL && !WINDOWS_PHONE
 #if (MF_FRAMEWORK_VERSION_V4_2 || MF_FRAMEWORK_VERSION_V4_3)
 using Microsoft.SPOT.Net.Security;
 #else
@@ -142,7 +142,7 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         /// </summary>
         /// <param name="channel">Channel from reading bytes</param>
         /// <returns>Decoded remaining length</returns>
-        protected static int decodeRemainingLength(MqttNetworkChannel channel)
+        protected static int decodeRemainingLength(IMqttNetworkChannel channel)
         {
             int multiplier = 1;
             int value = 0;
