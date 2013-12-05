@@ -50,7 +50,7 @@ namespace uPLibrary.Networking.M2Mqtt
         public const int MQTT_BROKER_DEFAULT_PORT = 1883;
         public const int MQTT_BROKER_DEFAULT_SSL_PORT = 8883;
         // default timeout on receiving from broker
-        public const int MQTT_DEFAULT_TIMEOUT = 5000;
+        public const int MQTT_DEFAULT_TIMEOUT = 15000;
         // max publish, subscribe and unsubscribe retry for QoS Level 1 or 2
         private const int MQTT_ATTEMPTS_RETRY = 3;
         // delay for retry publish, subscribe and unsubscribe for QoS Level 1 or 2
@@ -314,6 +314,11 @@ namespace uPLibrary.Networking.M2Mqtt
                 this.Close();
                 return null;
             }
+        }
+
+        public byte Subscribe(string topic, byte qos)
+        {
+            return Subscribe(new[] { topic }, new[] { qos })[0];
         }
 
         /// <summary>

@@ -158,6 +158,7 @@
     <Compile Include="..\M2Mqtt\MqttClient.cs">
       <Link>MqttClient.cs</Link>
     </Compile>
+    <Compile Include="AsyncMqttClient.cs" />
     <Compile Include="ExtensionHelpers.cs" />
     <Compile Include="Dns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
