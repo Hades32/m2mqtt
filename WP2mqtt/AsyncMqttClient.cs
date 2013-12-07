@@ -31,7 +31,7 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="secure">Using secure connection</param>
         /// <param name="caCert">CA certificate for secure connection</param>
         public AsyncMqttClient(string brokerHostName, int brokerPort = MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null)
-            : base(brokerHostName, brokerPort, secure, caCert)
+            : base(brokerHostName, brokerPort, secure, caCert, skipIdAdressResolution: true)
         {
         }
         

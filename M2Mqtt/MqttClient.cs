@@ -124,8 +124,13 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="brokerPort">Broker port</param>
         /// <param name="secure">Using secure connection</param>
         /// <param name="caCert">CA certificate for secure connection</param>
-        public MqttClient(string brokerHostName, int brokerPort = MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null)
+        public MqttClient(string brokerHostName, int brokerPort = MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null, bool skipIdAdressResolution = false)
         {
+            if (skipIdAdressResolution)
+            {
+                this.Init(brokerHostName, null, brokerPort, secure, caCert);
+                return;
+            }
             // throw exceptions to the caller
             IPHostEntry hostEntry = Dns.GetHostEntry(brokerHostName);
 
