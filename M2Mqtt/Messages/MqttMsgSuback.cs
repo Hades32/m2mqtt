@@ -1,5 +1,4 @@
 using System;
-using System.Net.Sockets;
 
 namespace uPLibrary.Networking.M2Mqtt.Messages
 {
@@ -80,7 +79,57 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
 
         public override byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            int fixedHeaderSize = 0;
+            int varHeaderSize = 0;
+            int payloadSize = 0;
+            int remainingLength = 0;
+            byte[] buffer;
+            int index = 0;
+
+            // message identifier
+            varHeaderSize += MESSAGE_ID_SIZE;
+
+            int grantedQosIdx = 0;
+            for (grantedQosIdx = 0; grantedQosIdx < this.grantedQosLevels.Length; grantedQosIdx++)
+            {
+                payloadSize++;
+            }
+
+            remainingLength += (varHeaderSize + payloadSize);
+
+            // first byte of fixed header
+            fixedHeaderSize = 1;
+
+            int temp = remainingLength;
+            // increase fixed header size based on remaining length
+            // (each remaining length byte can encode until 128)
+            do
+            {
+                fixedHeaderSize++;
+                temp = temp / 128;
+            } while (temp > 0);
+
+            // allocate buffer for message
+            buffer = new byte[fixedHeaderSize + varHeaderSize + payloadSize];
+
+            // first fixed header byte
+            buffer[index] = (byte)(MQTT_MSG_SUBACK_TYPE << MSG_TYPE_OFFSET);
+            index++;
+
+            // encode remaining length
+            index = this.encodeRemainingLength(remainingLength, buffer, index);
+
+            // message id
+            buffer[index++] = (byte)((this.messageId >> 8) & 0x00FF); // MSB
+            buffer[index++] = (byte)(this.messageId & 0x00FF); // LSB
+
+            // payload contains QoS levels granted
+            for (grantedQosIdx = 0; grantedQosIdx < this.grantedQosLevels.Length; grantedQosIdx++)
+            {
+                buffer[index++] = this.grantedQosLevels[grantedQosIdx];
+            }
+
+            return buffer;
         }
     }
 }

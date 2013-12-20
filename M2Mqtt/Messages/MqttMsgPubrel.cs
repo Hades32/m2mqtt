@@ -1,5 +1,3 @@
-using System.Net.Sockets;
-
 namespace uPLibrary.Networking.M2Mqtt.Messages
 {
     /// <summary>

@@ -107,9 +107,6 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         // retain flag
         protected bool retain;
 
-        // current message identifier generated
-        private static ushort messageIdCounter = 0;      
-
         /// <summary>
         /// Returns message bytes rapresentation
         /// </summary>
@@ -157,19 +154,6 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
                 multiplier *= 128;
             } while ((digit & 128) != 0);
             return value;
-        }
-
-        /// <summary>
-        /// Generate the next message identifier
-        /// </summary>
-        /// <returns>Message identifier</returns>
-        protected ushort GetMessageId()
-        {
-            if (messageIdCounter == 0)
-                messageIdCounter++;
-            else
-                messageIdCounter = ((messageIdCounter % UInt16.MaxValue) != 0) ? (ushort)(messageIdCounter + 1) : (ushort)0; 
-            return messageIdCounter;
         }
     }
 }

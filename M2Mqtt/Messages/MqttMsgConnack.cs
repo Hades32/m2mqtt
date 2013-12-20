@@ -1,5 +1,4 @@
 using System;
-using System.Net.Sockets;
 
 namespace uPLibrary.Networking.M2Mqtt.Messages
 {
@@ -19,7 +18,9 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         public const byte CONN_REFUSED_NOT_AUTHORIZED = 0x05;
 
         private const byte TOPIC_NAME_COMP_RESP_BYTE_OFFSET = 0;
+        private const byte TOPIC_NAME_COMP_RESP_BYTE_SIZE = 1;
         private const byte CONN_RETURN_CODE_BYTE_OFFSET = 1;
+        private const byte CONN_RETURN_CODE_BYTE_SIZE = 1;
 
         #endregion
 
@@ -72,7 +73,47 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
 
         public override byte[] GetBytes()
         {
-            throw new NotImplementedException();
+            int fixedHeaderSize = 0;
+            int varHeaderSize = 0;
+            int payloadSize = 0;
+            int remainingLength = 0;
+            byte[] buffer;
+            int index = 0;
+
+            // topic name compression response and connect return code
+            varHeaderSize += (TOPIC_NAME_COMP_RESP_BYTE_SIZE + CONN_RETURN_CODE_BYTE_SIZE);
+
+            remainingLength += (varHeaderSize + payloadSize);
+
+            // first byte of fixed header
+            fixedHeaderSize = 1;
+
+            int temp = remainingLength;
+            // increase fixed header size based on remaining length
+            // (each remaining length byte can encode until 128)
+            do
+            {
+                fixedHeaderSize++;
+                temp = temp / 128;
+            } while (temp > 0);
+
+            // allocate buffer for message
+            buffer = new byte[fixedHeaderSize + varHeaderSize + payloadSize];
+
+            // first fixed header byte
+            buffer[index] = (byte)(MQTT_MSG_CONNACK_TYPE << MSG_TYPE_OFFSET);
+            index++;
+
+            // encode remaining length
+            index = this.encodeRemainingLength(remainingLength, buffer, index);
+
+            // topic name compression response (reserved values. not used);
+            buffer[index++] = 0x00;
+            
+            // connect return code
+            buffer[index++] = this.returnCode;
+
+            return buffer;
         }
     }
 }
