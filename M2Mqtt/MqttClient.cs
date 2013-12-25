@@ -878,9 +878,9 @@ namespace uPLibrary.Networking.M2Mqtt
                     }
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    this.exReceiving = new MqttCommunicationException();
+                    this.exReceiving = new MqttCommunicationException("Problem when receiving", ex);
                 }
             }
         }

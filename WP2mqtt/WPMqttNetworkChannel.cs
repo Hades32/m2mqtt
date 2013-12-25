@@ -27,6 +27,10 @@ namespace uPLibrary.Networking.M2Mqtt
             this.remotePort = remotePort;
             this.secure = secure;
             this.caCert = caCert;
+
+            socket = new StreamSocket();
+            socket.Control.NoDelay = true;
+            socket.Control.KeepAlive = true;
         }
 
         public void Connect()
@@ -37,9 +41,6 @@ namespace uPLibrary.Networking.M2Mqtt
 
         private async Task ConnectAsync()
         {
-            socket = new StreamSocket();
-            socket.Control.NoDelay = true;
-            socket.Control.KeepAlive = true;
             // TODO maybe don't allow NULL cipher
             SocketProtectionLevel protectionLevel = secure ? SocketProtectionLevel.Ssl : SocketProtectionLevel.PlainSocket;
             await socket.ConnectAsync(new HostName(this.remoteHostName), this.remotePort.ToString(), protectionLevel);
@@ -60,7 +61,16 @@ namespace uPLibrary.Networking.M2Mqtt
         {
             IBuffer buffer = new Windows.Storage.Streams.Buffer((uint)outbuffer.Length);
             buffer = await socket.InputStream.ReadAsync(buffer, buffer.Capacity, Windows.Storage.Streams.InputStreamOptions.None);
-            DataReader.FromBuffer(buffer).ReadBytes(outbuffer);
+            if (buffer.Length < outbuffer.Length)
+            {
+                var outbuffer2 = new byte[buffer.Length];
+                DataReader.FromBuffer(buffer).ReadBytes(outbuffer2);
+                Array.Copy(outbuffer2, outbuffer, Math.Min(outbuffer.Length, outbuffer2.Length));
+            }
+            else
+            {
+                DataReader.FromBuffer(buffer).ReadBytes(outbuffer);
+            }
             return (int)buffer.Length;
         }
 

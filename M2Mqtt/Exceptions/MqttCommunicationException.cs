@@ -7,5 +7,13 @@ namespace uPLibrary.Networking.M2Mqtt.Exceptions
     /// </summary>
     public class MqttCommunicationException : ApplicationException
     {
+        public MqttCommunicationException()
+        {
+        }
+
+        public MqttCommunicationException(string msg, Exception ex) : base(msg, ex)
+        {
+
+        }
     }
 }
