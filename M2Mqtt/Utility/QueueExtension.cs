@@ -1,4 +1,4 @@
-﻿/*
+/*
 M2Mqtt - MQTT Client Library for .Net
 Copyright (c) 2014, Paolo Patierno, All rights reserved.
 
@@ -17,42 +17,36 @@ License along with this library.
 */
 
 using System;
-using System.Text;
+using System.Collections;
 
 namespace uPLibrary.Networking.M2Mqtt
 {
     /// <summary>
-    /// Interface for channel under MQTT library
+    /// Extension class for a Queue
     /// </summary>
-    public interface IMqttNetworkChannel
+    internal static class QueueExtension
     {
         /// <summary>
-        /// Data available on channel
+        /// Predicate for searching inside a queue
         /// </summary>
-        bool DataAvailable { get; }
+        /// <param name="item">Item of the queue</param>
+        /// <returns>Result of predicate</returns>
+        internal delegate bool QueuePredicate(object item);
 
         /// <summary>
-        /// Receive data from the network channel
+        /// Get (without removing) an item from queue based on predicate
         /// </summary>
-        /// <param name="buffer">Data buffer for receiving data</param>
-        /// <returns>Number of bytes received</returns>
-        int Receive(byte[] buffer);
-
-        /// <summary>
-        /// Send data on the network channel to the broker
-        /// </summary>
-        /// <param name="buffer">Data buffer to send</param>
-        /// <returns>Number of byte sent</returns>
-        int Send(byte[] buffer);
-
-        /// <summary>
-        /// Close the network channel
-        /// </summary>
-        void Close();
-
-        /// <summary>
-        /// Connect to remote server
-        /// </summary>
-        void Connect();
+        /// <param name="queue">Queue in which to search</param>
+        /// <param name="predicate">Predicate to verify to get item</param>
+        /// <returns>Item matches the predicate</returns>
+        internal static object Get(this Queue queue, QueuePredicate predicate)
+        {
+            foreach (var item in queue)
+            {
+                if (predicate(item))
+                    return item;
+            }
+            return null;
+        }
     }
 }

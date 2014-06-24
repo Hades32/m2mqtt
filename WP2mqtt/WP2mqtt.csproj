@@ -107,6 +107,12 @@
     <Compile Include="..\M2Mqtt\Messages\MqttMsgConnect.cs">
       <Link>Messages\MqttMsgConnect.cs</Link>
     </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgConnectEventArgs.cs">
+      <Link>Messages\MqttMsgConnectEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgContext.cs">
+      <Link>Messages\MqttMsgContext.cs</Link>
+    </Compile>
     <Compile Include="..\M2Mqtt\Messages\MqttMsgDisconnect.cs">
       <Link>Messages\MqttMsgDisconnect.cs</Link>
     </Compile>
@@ -146,6 +152,9 @@
     <Compile Include="..\M2Mqtt\Messages\MqttMsgSubscribedEventArgs.cs">
       <Link>Messages\MqttMsgSubscribedEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgSubscribeEventArgs.cs">
+      <Link>Messages\MqttMsgSubscribeEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsuback.cs">
       <Link>Messages\MqttMsgUnsuback.cs</Link>
     </Compile>
@@ -155,8 +164,17 @@
     <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsubscribedEventArgs.cs">
       <Link>Messages\MqttMsgUnsubscribedEventArgs.cs</Link>
     </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsubscribeEventArgs.cs">
+      <Link>Messages\MqttMsgUnsubscribeEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\M2Mqtt\MqttClient.cs">
       <Link>MqttClient.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\MqttSettings.cs">
+      <Link>MqttSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Utility\QueueExtension.cs">
+      <Link>Utility\QueueExtension.cs</Link>
     </Compile>
     <Compile Include="AsyncMqttClient.cs" />
     <Compile Include="ExtensionHelpers.cs" />
@@ -164,6 +182,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IPHostEntry.cs" />
     <Compile Include="WPMqttNetworkChannel.cs" />
+    <Compile Include="WPQueue.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

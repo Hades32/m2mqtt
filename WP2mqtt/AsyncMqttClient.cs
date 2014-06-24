@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -18,7 +14,7 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="brokerPort">Broker port</param>
         /// <param name="secure">Using secure connection</param>
         /// <param name="caCert">CA certificate for secure connection</param>
-        public AsyncMqttClient(IPAddress brokerIpAddress, int brokerPort = MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null)
+        public AsyncMqttClient(IPAddress brokerIpAddress, int brokerPort = MqttSettings.MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null)
             : base(brokerIpAddress, brokerPort, secure, caCert)
         {
         }
@@ -30,11 +26,11 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="brokerPort">Broker port</param>
         /// <param name="secure">Using secure connection</param>
         /// <param name="caCert">CA certificate for secure connection</param>
-        public AsyncMqttClient(string brokerHostName, int brokerPort = MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null)
+        public AsyncMqttClient(string brokerHostName, int brokerPort = MqttSettings.MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null)
             : base(brokerHostName, brokerPort, secure, caCert, skipIdAdressResolution: true)
         {
         }
-        
+
         /// <summary>
         /// Connect to broker
         /// </summary>
@@ -49,7 +45,7 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="cleanSession">Clean sessione flag</param>
         /// <param name="keepAlivePeriod">Keep alive period</param>
         /// <returns>Return code of CONNACK message from broker</returns>
-        public Task<bool> ConnectAsync(string clientId, 
+        public Task<bool> ConnectAsync(string clientId,
             string username = null,
             string password = null,
             bool willRetain = false,
@@ -89,9 +85,9 @@ namespace uPLibrary.Networking.M2Mqtt
             return task;
         }
 
-        public Task<byte> SubscribeAsync(string topic, byte qos)
+        public Task<ushort> SubscribeAsync(string topic, byte qos)
         {
-            var task = new Task<byte>(() =>
+            var task = new Task<ushort>(() =>
             {
                 return base.Subscribe(topic, qos);
             });
@@ -105,9 +101,9 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="topics">List of topics to subscribe</param>
         /// <param name="qosLevels">QOS levels related to topics</param>
         /// <returns>Granted QoS Levels in SUBACK message from broker</returns>
-        public Task<byte[]> SubscribeAsync(string[] topics, byte[] qosLevels)
+        public Task<ushort> SubscribeAsync(string[] topics, byte[] qosLevels)
         {
-            var task = new Task<byte[]>(() =>
+            var task = new Task<ushort>(() =>
             {
                 return base.Subscribe(topics, qosLevels);
             });

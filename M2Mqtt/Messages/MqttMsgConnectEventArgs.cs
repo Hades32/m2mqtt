@@ -1,4 +1,4 @@
-/*
+﻿/*
 M2Mqtt - MQTT Client Library for .Net
 Copyright (c) 2014, Paolo Patierno, All rights reserved.
 
@@ -25,33 +25,22 @@ using Microsoft.SPOT;
 namespace uPLibrary.Networking.M2Mqtt.Messages
 {
     /// <summary>
-    /// Event Args class for published message
+    /// Event Args class for CONNECT message received from client
     /// </summary>
-    public class MqttMsgPublishedEventArgs : EventArgs
+    public class MqttMsgConnectEventArgs : EventArgs
     {
-        #region Properties...
-
         /// <summary>
-        /// Message identifier
+        /// Message received from client
         /// </summary>
-        public ushort MessageId
-        {
-            get { return this.messageId; }
-            internal set { this.messageId = value; }
-        }
-
-        #endregion
-
-        // message identifier
-        ushort messageId;
+        public MqttMsgConnect Message { get; private set; }
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="messageId">Message identifier published</param>
-        public MqttMsgPublishedEventArgs(ushort messageId)
+        /// <param name="msg">CONNECT message received from client</param>
+        public MqttMsgConnectEventArgs(MqttMsgConnect connect)
         {
-            this.messageId = messageId;
+            this.Message = connect;
         }
     }
-}
+} 

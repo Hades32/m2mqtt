@@ -1,3 +1,21 @@
+/*
+M2Mqtt - MQTT Client Library for .Net
+Copyright (c) 2014, Paolo Patierno, All rights reserved.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 3.0 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library.
+*/
+
 #if SSL
 #if (MF_FRAMEWORK_VERSION_V4_2 || MF_FRAMEWORK_VERSION_V4_3)
 using Microsoft.SPOT.Net.Security;
@@ -22,7 +40,7 @@ namespace uPLibrary.Networking.M2Mqtt
         private IPAddress remoteIpAddress;
         private int remotePort;
 
-        // socket for communication with broker
+        // socket for communication
         private Socket socket;
         // using SSL
         private bool secure;
@@ -81,6 +99,15 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <summary>
         /// Constructor
         /// </summary>
+        /// <param name="socket">Socket opened with the client</param>
+        public MqttNetworkChannel(Socket socket)
+        {
+            this.socket = socket;
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         /// <param name="remoteHostName">Remote Host name</param>
         /// <param name="remoteIpAddress">Remote IP address</param>
         /// <param name="remotePort">Remote port</param>
@@ -88,7 +115,7 @@ namespace uPLibrary.Networking.M2Mqtt
             this(remoteHostName, remoteIpAddress, remotePort, false, null)
         {
         }
-        
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -144,7 +171,7 @@ namespace uPLibrary.Networking.M2Mqtt
         }
 
         /// <summary>
-        /// Send data on the network channel to the broker
+        /// Send data on the network channel
         /// </summary>
         /// <param name="buffer">Data buffer to send</param>
         /// <returns>Number of byte sent</returns>
@@ -164,7 +191,7 @@ namespace uPLibrary.Networking.M2Mqtt
         }
 
         /// <summary>
-        /// Receive data from the network channel (from broker)
+        /// Receive data from the network
         /// </summary>
         /// <param name="buffer">Data buffer for receiving data</param>
         /// <returns>Number of bytes received</returns>

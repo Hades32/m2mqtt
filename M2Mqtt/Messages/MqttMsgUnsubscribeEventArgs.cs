@@ -25,9 +25,9 @@ using Microsoft.SPOT;
 namespace uPLibrary.Networking.M2Mqtt.Messages
 {
     /// <summary>
-    /// Event Args class for subscribed topics
+    /// Event Args class for unsubscribe request on topics
     /// </summary>
-    public class MqttMsgSubscribedEventArgs : EventArgs
+    public class MqttMsgUnsubscribeEventArgs : EventArgs
     {
         #region Properties...
 
@@ -41,30 +41,30 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         }
 
         /// <summary>
-        /// List of granted QOS Levels
+        /// Topics requested to subscribe
         /// </summary>
-        public byte[] GrantedQoSLevels
+        public string[] Topics
         {
-            get { return this.grantedQosLevels; }
-            internal set { this.grantedQosLevels = value; }
+            get { return this.topics; }
+            internal set { this.topics = value; }
         }
 
         #endregion
 
         // message identifier
         ushort messageId;
-        // granted QOS levels
-        byte[] grantedQosLevels;
+        // topics requested to unsubscribe
+        string[] topics;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="messageId">Message identifier for subscribed topics</param>
-        /// <param name="grantedQosLevels">List of granted QOS Levels</param>
-        public MqttMsgSubscribedEventArgs(ushort messageId, byte[] grantedQosLevels)
+        /// <param name="topics">Topics requested to subscribe</param>
+        public MqttMsgUnsubscribeEventArgs(ushort messageId, string[] topics)
         {
             this.messageId = messageId;
-            this.grantedQosLevels = grantedQosLevels;
+            this.topics = topics;
         }
     }
 }

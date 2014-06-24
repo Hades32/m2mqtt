@@ -25,9 +25,9 @@ using Microsoft.SPOT;
 namespace uPLibrary.Networking.M2Mqtt.Messages
 {
     /// <summary>
-    /// Event Args class for subscribed topics
+    /// Event Args class for subscribe request on topics
     /// </summary>
-    public class MqttMsgSubscribedEventArgs : EventArgs
+    public class MqttMsgSubscribeEventArgs : EventArgs
     {
         #region Properties...
 
@@ -41,30 +41,43 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         }
 
         /// <summary>
-        /// List of granted QOS Levels
+        /// Topics requested to subscribe
         /// </summary>
-        public byte[] GrantedQoSLevels
+        public string[] Topics
         {
-            get { return this.grantedQosLevels; }
-            internal set { this.grantedQosLevels = value; }
+            get { return this.topics; }
+            internal set { this.topics = value; }
+        }
+
+        /// <summary>
+        /// List of QOS Levels requested
+        /// </summary>
+        public byte[] QoSLevels
+        {
+            get { return this.qosLevels; }
+            internal set { this.qosLevels = value; }
         }
 
         #endregion
 
         // message identifier
         ushort messageId;
-        // granted QOS levels
-        byte[] grantedQosLevels;
+        // topics requested to subscribe
+        string[] topics;
+        // QoS levels requested
+        byte[] qosLevels;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="messageId">Message identifier for subscribed topics</param>
-        /// <param name="grantedQosLevels">List of granted QOS Levels</param>
-        public MqttMsgSubscribedEventArgs(ushort messageId, byte[] grantedQosLevels)
+        /// <param name="messageId">Message identifier for subscribe topics request</param>
+        /// <param name="topics">Topics requested to subscribe</param>
+        /// <param name="qosLevels">List of QOS Levels requested</param>
+        public MqttMsgSubscribeEventArgs(ushort messageId, string[] topics, byte[] qosLevels)
         {
             this.messageId = messageId;
-            this.grantedQosLevels = grantedQosLevels;
+            this.topics = topics;
+            this.qosLevels = qosLevels;
         }
     }
 }

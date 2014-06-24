@@ -1,3 +1,21 @@
+/*
+M2Mqtt - MQTT Client Library for .Net
+Copyright (c) 2014, Paolo Patierno, All rights reserved.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 3.0 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library.
+*/
+
 #if (!MF_FRAMEWORK_VERSION_V4_2 && !MF_FRAMEWORK_VERSION_V4_3)
 using System;
 #else
@@ -32,6 +50,15 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         }
 
         /// <summary>
+        /// Duplicate message flag
+        /// </summary>
+        public bool DupFlag
+        {
+            get { return this.dupFlag; }
+            set { this.dupFlag = value; }
+        }
+
+        /// <summary>
         /// Quality of Service level
         /// </summary>
         public byte QosLevel
@@ -55,25 +82,30 @@ namespace uPLibrary.Networking.M2Mqtt.Messages
         private string topic;
         // message data
         private byte[] message;
+        // duplicate delivery
+        private bool dupFlag;
         // quality of service level
-        protected byte qosLevel;
+        private byte qosLevel;
         // retain flag
-        protected bool retain;       
+        private bool retain;       
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="topic">Message topic</param>
         /// <param name="message">Message data</param>
+        /// <param name="dupFlag">Duplicate delivery flag</param>
         /// <param name="qosLevel">Quality of Service level</param>
         /// <param name="retain">Retain flag</param>
         public MqttMsgPublishEventArgs(string topic,
             byte[] message,
+            bool dupFlag,
             byte qosLevel,
             bool retain)
         {
             this.topic = topic;
             this.message = message;
+            this.dupFlag = dupFlag;
             this.qosLevel = qosLevel;
             this.retain = retain;
         }
