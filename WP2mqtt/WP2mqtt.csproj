@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CBE4F3E-1BE9-4C2A-98D0-A545F8600AA2}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WP2mqtt</RootNamespace>
+    <AssemblyName>WP2mqtt</AssemblyName>
+    <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;SSL</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;SSL</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\M2Mqtt\Exceptions\MqttClientException.cs">
+      <Link>Exceptions\MqttClientException.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Exceptions\MqttCommunicationException.cs">
+      <Link>Exceptions\MqttCommunicationException.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Exceptions\MqttConnectionException.cs">
+      <Link>Exceptions\MqttConnectionException.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Exceptions\MqttTimeoutException.cs">
+      <Link>Exceptions\MqttTimeoutException.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\IMqttNetworkChannel.cs">
+      <Link>IMqttNetworkChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgBase.cs">
+      <Link>Messages\MqttMsgBase.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgConnack.cs">
+      <Link>Messages\MqttMsgConnack.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgConnect.cs">
+      <Link>Messages\MqttMsgConnect.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgConnectEventArgs.cs">
+      <Link>Messages\MqttMsgConnectEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgContext.cs">
+      <Link>Messages\MqttMsgContext.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgDisconnect.cs">
+      <Link>Messages\MqttMsgDisconnect.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPingReq.cs">
+      <Link>Messages\MqttMsgPingReq.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPingResp.cs">
+      <Link>Messages\MqttMsgPingResp.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPuback.cs">
+      <Link>Messages\MqttMsgPuback.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPubcomp.cs">
+      <Link>Messages\MqttMsgPubcomp.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPublish.cs">
+      <Link>Messages\MqttMsgPublish.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPublishedEventArgs.cs">
+      <Link>Messages\MqttMsgPublishedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPublishEventArgs.cs">
+      <Link>Messages\MqttMsgPublishEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPubrec.cs">
+      <Link>Messages\MqttMsgPubrec.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgPubrel.cs">
+      <Link>Messages\MqttMsgPubrel.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgSuback.cs">
+      <Link>Messages\MqttMsgSuback.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgSubscribe.cs">
+      <Link>Messages\MqttMsgSubscribe.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgSubscribedEventArgs.cs">
+      <Link>Messages\MqttMsgSubscribedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgSubscribeEventArgs.cs">
+      <Link>Messages\MqttMsgSubscribeEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsuback.cs">
+      <Link>Messages\MqttMsgUnsuback.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsubscribe.cs">
+      <Link>Messages\MqttMsgUnsubscribe.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsubscribedEventArgs.cs">
+      <Link>Messages\MqttMsgUnsubscribedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Messages\MqttMsgUnsubscribeEventArgs.cs">
+      <Link>Messages\MqttMsgUnsubscribeEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\MqttClient.cs">
+      <Link>MqttClient.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\MqttSettings.cs">
+      <Link>MqttSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\M2Mqtt\Utility\QueueExtension.cs">
+      <Link>Utility\QueueExtension.cs</Link>
+    </Compile>
+    <Compile Include="AsyncMqttClient.cs" />
+    <Compile Include="ExtensionHelpers.cs" />
+    <Compile Include="Dns.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IPHostEntry.cs" />
+    <Compile Include="WPMqttNetworkChannel.cs" />
+    <Compile Include="WPQueue.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
+  <ProjectExtensions />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

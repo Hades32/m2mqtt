@@ -1,4 +1,4 @@
-ï»¿/*
+»¿/*
 M2Mqtt - MQTT Client Library for .Net
 Copyright (c) 2014, Paolo Patierno, All rights reserved.
 
@@ -27,14 +27,14 @@ namespace uPLibrary.Networking.M2Mqtt
         public const int MQTT_BROKER_DEFAULT_PORT = 1883;
         public const int MQTT_BROKER_DEFAULT_SSL_PORT = 8883;
         // default timeout on receiving from client
-        public const int MQTT_DEFAULT_TIMEOUT = 5000;
+        public const int MQTT_DEFAULT_TIMEOUT = 25000;
         // max publish, subscribe and unsubscribe retry for QoS Level 1 or 2
         public const int MQTT_ATTEMPTS_RETRY = 3;
         // delay for retry publish, subscribe and unsubscribe for QoS Level 1 or 2
         public const int MQTT_DELAY_RETRY = 10000;
         // broker need to receive the first message (CONNECT)
         // within a reasonable amount of time after TCP/IP connection 
-        public const int MQTT_CONNECT_TIMEOUT = 5000;
+        public const int MQTT_CONNECT_TIMEOUT = 25000;
 
         /// <summary>
         /// Listening connection port
@@ -65,7 +65,7 @@ namespace uPLibrary.Networking.M2Mqtt
         /// Delay on retry
         /// </summary>
         public int DelayOnRetry { get; internal set; }
-        
+
         /// <summary>
         /// Singleton instance of settings
         /// </summary>

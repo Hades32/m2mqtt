@@ -30,7 +30,7 @@ using Microsoft.SPOT.Net.Security;
 #endif
 // else other frameworks (.Net, .Net Compact, Mono, Windows Phone) 
 #else
-using System.Collections.Generic;
+
 #if (SSL && !WINDOWS_PHONE)
 using System.Security.Authentication;
 using System.Net.Security;
@@ -38,7 +38,6 @@ using System.Net.Security;
 #endif
 
 using System.Security.Cryptography.X509Certificates;
-using System.Collections;
 
 namespace uPLibrary.Networking.M2Mqtt
 {
@@ -99,7 +98,7 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <summary>
         /// Delegate that defines event handler for client disconnection (DISCONNECT message or not)
         /// </summary>
-        public delegate void MqttMsgDisconnectEventHandler(object sender, EventArgs e);       
+        public delegate void MqttMsgDisconnectEventHandler(object sender, EventArgs e);
 
         // CA certificate
         private X509Certificate caCert;
@@ -160,7 +159,7 @@ namespace uPLibrary.Networking.M2Mqtt
 #endif
         // event for client disconnection (DISCONNECT message or not)
         public event MqttMsgDisconnectEventHandler MqttMsgDisconnected;
-        
+
         // channel to communicate over the network
         private IMqttNetworkChannel channel;
 
@@ -249,8 +248,13 @@ namespace uPLibrary.Networking.M2Mqtt
         /// <param name="brokerPort">Broker port</param>
         /// <param name="secure">Using secure connection</param>
         /// <param name="caCert">CA certificate for secure connection</param>
-        public MqttClient(string brokerHostName, int brokerPort, bool secure, X509Certificate caCert)
+        public MqttClient(string brokerHostName, int brokerPort = MqttSettings.MQTT_BROKER_DEFAULT_PORT, bool secure = false, X509Certificate caCert = null, bool skipIdAdressResolution = false)
         {
+            if (skipIdAdressResolution)
+            {
+                this.Init(brokerHostName, null, brokerPort, secure, caCert);
+                return;
+            }
             // throw exceptions to the caller
             IPHostEntry hostEntry = Dns.GetHostEntry(brokerHostName);
 
@@ -684,6 +688,11 @@ namespace uPLibrary.Networking.M2Mqtt
             return subscribe.MessageId;
         }
 
+        public ushort Subscribe(string topic, byte qos)
+        {
+            return Subscribe(new[] { topic }, new[] { qos });
+        }
+
         /// <summary>
         /// Unsubscribe for message topics
         /// </summary>
@@ -727,7 +736,7 @@ namespace uPLibrary.Networking.M2Mqtt
             publish.MessageId = this.GetMessageId();
 
             // enqueue message to publish into the inflight queue
-            this.EnqueueInflight(publish, MqttMsgFlow.ToPublish);           
+            this.EnqueueInflight(publish, MqttMsgFlow.ToPublish);
 
             return publish.MessageId;
         }
@@ -1071,7 +1080,7 @@ namespace uPLibrary.Networking.M2Mqtt
             int readBytes = 0;
             byte[] fixedHeaderFirstByte = new byte[1];
             byte msgType;
-            
+
 #if BROKER
             long now = 0;
 
@@ -1135,7 +1144,7 @@ namespace uPLibrary.Networking.M2Mqtt
 #else
                                 throw new MqttClientException(MqttClientErrorCode.WrongBrokerMessage);
 #endif
-                                
+
                             // CONNACK message received
                             case MqttMsgBase.MQTT_MSG_CONNACK_TYPE:
 
@@ -1245,7 +1254,7 @@ namespace uPLibrary.Networking.M2Mqtt
                                 this.EnqueueInternal(pubrel);
 
                                 break;
-                                
+
                             // PUBCOMP message received
                             case MqttMsgBase.MQTT_MSG_PUBCOMP_TYPE:
 
@@ -1348,8 +1357,8 @@ namespace uPLibrary.Networking.M2Mqtt
                         this.Close();
 #else
                         // ... send keep alive
-						this.Ping();
-						wait = this.keepAlivePeriod;
+                        this.Ping();
+                        wait = this.keepAlivePeriod;
 #endif
                     }
                     else
