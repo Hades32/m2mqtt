@@ -176,6 +176,9 @@
     <Compile Include="..\M2Mqtt\Utility\QueueExtension.cs">
       <Link>Utility\QueueExtension.cs</Link>
     </Compile>
+    <Compile Include="..\M2Mqtt\Utility\Trace.cs">
+      <Link>Utility\Trace.cs</Link>
+    </Compile>
     <Compile Include="AsyncMqttClient.cs" />
     <Compile Include="ExtensionHelpers.cs" />
     <Compile Include="Dns.cs" />
